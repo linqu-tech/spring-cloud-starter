@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package RpcErrorProto;
+
+option java_package = "tech.linqu.spring.cloud.starter.proto.internal.error";
+
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+enum RpcErrorCode {
+    option (e_opts).java = {
+        implements: "ApiErrorCode"
+    };
+
+    OK = 0;
+    ERROR = 1;
+}

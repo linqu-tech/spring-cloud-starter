@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="description" content="Consent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/consent.css">
+    <link rel="stylesheet" href="css/material-icons.css">
+</head>
+
+<body>
+<div id="container">
+    <div id="title">
+        <i class="material-icons lock">lock</i> Consent
+    </div>
+
+    <div id="error" style="display: none">
+        Bad credentials
+    </div>
+
+    <div class="tips">
+        <div class="tips-item">The application
+            <span id="tips-client-id" class="tips-keyword"></span>
+            wants to access your account
+            <span id="tips-principal-name" class="tips-keyword"></span>
+        </div>
+        <div class="tips-item">The following permissions are requested by the above app.</div>
+        <div class="tips-item">Please review these and consent if you approve.</div>
+    </div>
+
+    <form id="consent-form" method="post" action="/uaa/oauth2/authorize">
+        <input id="input-client-id" type="hidden" name="client_id">
+        <input id="input-state" type="hidden" name="state">
+
+        <div id="permissions" class="permissions"></div>
+
+        <div class="operations">
+            <button id="submit-button" type="submit" class="submit-button">Submit</button>
+            <button id="reset-button" class="cancel-button">Cancel</button>
+        </div>
+    </form>
+
+    <div class="description">
+        <span class="item">Your consent to provide access is required.</span>
+        <span class="item">
+            If you do not approve, click Cancel, in which case no information will be shared with the app.
+        </span>
+    </div>
+</div>
+
+<script src="js/lib/jquery.min.js"></script>
+<script src="js/consent.js"></script>
+</body>
+</html>

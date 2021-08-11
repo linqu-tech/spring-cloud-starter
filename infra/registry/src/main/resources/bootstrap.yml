@@ -1,0 +1,18 @@
+eureka:
+  client:
+    fetchRegistry: false
+    registerWithEureka: false
+  instance:
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: registry
+  cloud:
+    config:
+      enabled: false
+      fail-fast: true
+      password: pass1234
+      username: user
+  profiles:
+    default: local

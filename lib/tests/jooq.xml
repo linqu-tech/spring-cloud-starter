@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.14.0.xsd">
+    <basedir>.</basedir>
+    <generator>
+        <strategy>
+            <matchers>
+                <tables>
+                    <table>
+                        <tableClass>
+                            <transform>PASCAL</transform>
+                            <expression>$0_table</expression>
+                        </tableClass>
+                    </table>
+                </tables>
+            </matchers>
+        </strategy>
+        <target>
+            <packageName>tech.linqu.spring.cloud.starter.tests.schema</packageName>
+            <directory>build/generated/sources/jooq/java/main</directory>
+        </target>
+        <database>
+            <name>org.jooq.meta.extensions.ddl.DDLDatabase</name>
+            <properties>
+                <property>
+                    <key>scripts</key>
+                    <value>src/main/resources/db/migration/*</value>
+                </property>
+            </properties>
+        </database>
+    </generator>
+</configuration>

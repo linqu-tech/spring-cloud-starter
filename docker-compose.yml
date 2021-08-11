@@ -1,0 +1,116 @@
+services:
+  config:
+    build: infra/config
+    image: starter/infra-config
+    environment:
+      JAVA_OPTS: >
+        -Xss512k
+        -XX:MaxRAM=160m
+        -Dserver.tomcat.threads.max=20
+    ports:
+      - 8100:8100
+    mem_limit: 160m
+    volumes:
+      - data-app:/app/infra/config
+
+  registry:
+    build: infra/registry
+    image: starter/infra-register
+    depends_on:
+      config:
+        condition: service_healthy
+    environment:
+      JAVA_OPTS: >
+        -Xss512k
+        -XX:MaxRAM=160m
+        -Dserver.tomcat.threads.max=20
+        -Dspring.profiles.active=prod
+    ports:
+      - 8110:8110
+    mem_limit: 160m
+    volumes:
+      - data-app:/app/infra/registry
+
+  gateway:
+    build: infra/gateway
+    image: starter/infra-gateway
+    depends_on:
+      config:
+        condition: service_healthy
+      registry:
+        condition: service_healthy
+    environment:
+      JAVA_OPTS: >
+        -Xss512k
+        -XX:MaxRAM=160m
+        -Dserver.tomcat.threads.max=20
+        -Dspring.profiles.active=prod
+        -Dstarter.auth-url=http://127.0.0.1:8080/uaa
+    ports:
+      - 8080:8080
+    mem_limit: 160m
+    volumes:
+      - data-app:/app/infra/gateway
+
+  db-mysql:
+    build: aggregation/mysql
+    image: starter/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 8300:3306
+    mem_limit: 100m
+    volumes:
+      - data-mysql:/var/lib/mysql
+
+  auth-service:
+    build: service/auth
+    image: starter/auth-service
+    depends_on:
+      db-mysql:
+        condition: service_started
+      registry:
+        condition: service_healthy
+    environment:
+      JAVA_OPTS: >
+        -Xss512k
+        -XX:MaxRAM=260m
+        -Dserver.tomcat.threads.max=20
+        -Dspring.profiles.active=prod
+        -Dstarter.client.redirect-uri=http://127.0.0.1:4200/passport/callback
+    ports:
+      - 8200:8200
+    mem_limit: 260m
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://gateway:8080/uaa/actuator/health"]
+      interval: 1s
+      timeout: 5s
+      retries: 60
+    volumes:
+      - data-app:/app/service/auth
+
+  account-service:
+    build: service/account
+    image: starter/account-service
+    depends_on:
+      db-mysql:
+        condition: service_started
+      auth-service:
+        condition: service_healthy
+    environment:
+      JAVA_OPTS: >
+        -Xss512k
+        -XX:MaxRAM=260m
+        -Dserver.tomcat.threads.max=20
+        -Dspring.profiles.active=prod
+    ports:
+      - 8210:8210
+    mem_limit: 260m
+    restart: on-failure:5
+    volumes:
+      - data-app:/app/service/account
+
+volumes:
+  data-app:
+  data-mysql:

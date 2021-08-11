@@ -1,0 +1,44 @@
+{
+    "name": "dev-infa",
+    "version": "0.0.1",
+    "description": "Infrastructure for development",
+    "license": "Apache-2.0",
+    "scripts": {
+        "cz": "cz",
+        "postinstall": "husky install"
+    },
+    "devDependencies": {
+        "@commitlint/config-conventional": "~12.1.4",
+        "@commitlint/cz-commitlint": "~12.1.4",
+        "commitizen": "~4.2.4",
+        "commitlint": "~12.1.4",
+        "husky": "~7.0.1"
+    },
+    "config": {
+        "commitizen": {
+            "path": "@commitlint/cz-commitlint"
+        }
+    },
+    "commitlint": {
+        "extends": "@commitlint/config-conventional",
+        "rules": {
+            "scope-enum": [
+                2,
+                "always",
+                [
+                    "aggregation",
+                    "frontend",
+                    "infra.config",
+                    "infra.gateway",
+                    "infra.registry",
+                    "lib.proto",
+                    "lib.tests",
+                    "lib.utilities",
+                    "proto",
+                    "service.account",
+                    "service.auth"
+                ]
+            ]
+        }
+    }
+}

@@ -1,0 +1,16 @@
+import utils.Props
+import utils.Vers
+
+plugins {
+    id("conventions.versioning")
+    idea
+}
+
+Props.initialize(project)
+Vers.initialize(project)
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url = uri(Props.snapshotRepo) }
+}

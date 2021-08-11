@@ -1,0 +1,16 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8110/eureka/
+  instance:
+    prefer-ip-address: true
+
+spring:
+  cloud:
+    config:
+      allowOverride: true
+      overrideNone: true
+      overrideSystemProperties: false
+
+starter:
+  gateway: http://gateway:8080

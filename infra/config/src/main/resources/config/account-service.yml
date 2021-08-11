@@ -1,0 +1,38 @@
+server:
+  port: 8210
+  servlet:
+    context-path: /account
+
+spring:
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  datasource:
+    url: jdbc:mysql://db-mysql/starter-account
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${starter.gateway}/uaa
+      client:
+        registration:
+          account-service:
+            provider: uaa
+            client-id: account-service
+            client-secret: pass1234
+            authorization-grant-type: client_credentials
+            scope: server
+        provider:
+          uaa:
+            issuer-uri: ${starter.gateway}/uaa
+
+starter:
+  base-url:
+    auth-service: lb://auth-service

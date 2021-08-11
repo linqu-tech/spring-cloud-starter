@@ -1,0 +1,78 @@
+<nz-card [nzBordered]="false">
+  <form nz-form [formGroup]="formMapper.form" (ngSubmit)="submit()" class="search__form">
+    <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
+      <div nz-col nzXl="6" nzMd="12" nzXs="24">
+        <nz-form-item>
+          <nz-form-label nzFor="status">Status</nz-form-label>
+          <nz-form-control>
+            <nz-select nzId="status" [nzPlaceHolder]="'Please select'" nzShowSearch formControlName="status">
+              <nz-option *ngFor="let v of statuses" [nzLabel]="v.name" [nzValue]="v.code"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzXl="6" nzMd="12" nzXs="24">
+        <nz-form-item>
+          <nz-form-label nzFor="no">User Id</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="userId" placeholder="Please input..." id="userId" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzXl="6" nzMd="12" nzXs="24">
+        <nz-form-item>
+          <nz-form-label nzFor="no">Nickname</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="nickname" placeholder="Please input..." id="nickname" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzXl="6" nzMd="12" nzXs="24">
+        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">Search</button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button class="mx-sm" nz-button type="button" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </form>
+
+  <ng-template #rangeTemplate let-range="range" let-total>
+    {{ range[0] }}-{{ range[1] }} of {{ total }}
+  </ng-template>
+  <nz-table
+    (nzQueryParams)="onQueryParamsChanged($event)"
+    [nzData]="data"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzPageIndex]="params.page"
+    [nzPageSize]="params.size"
+    [nzShowQuickJumper]="true"
+    [nzTotal]="total"
+    [nzShowTotal]="rangeTemplate"
+    nzShowSizeChanger
+  >
+    <thead>
+    <tr>
+      <th nzColumnKey="id" [nzSortFn]="true" [nzSortOrder]="sortOrder('id')">Id</th>
+      <th nzColumnKey="username">Username</th>
+      <th nzColumnKey="nickname" [nzSortFn]="true" [nzSortOrder]="sortOrder('nickname')">Nickname</th>
+      <th nzColumnKey="gender" [nzFilterFn]="true" [nzFilters]="genders">Gender</th>
+      <th nzColumnKey="status">Status</th>
+      <th nzRight>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of data">
+      <td>{{ item.id }}</td>
+      <td>{{ item.username }}</td>
+      <td>{{ item.nickname }}</td>
+      <td>{{ item.gender.name }}</td>
+      <td>{{ item.status.name }}</td>
+      <td nzRight>
+        <a (click)="detail(item.id)">Detail</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="delete(item.id)">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

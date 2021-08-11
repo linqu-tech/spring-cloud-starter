@@ -1,0 +1,71 @@
+syntax = "proto2";
+
+package RpcUserProto;
+
+option java_package = "tech.linqu.spring.cloud.starter.proto.internal.user";
+
+import "imports/Common.proto";
+import "imports/Model.proto";
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+message RpcUserListRequest {
+    option (m_opts).opt = {
+        method: "POST"
+        context: "uaa"
+        path: "/user/list?pagination={pageable.pagination}&page={pageable.page}&size={pageable.size}&sort={pageable.sort}"
+    };
+
+    optional CommonProto.PageablePb pageable = 1 [(opts).opt = {in_query: true}];
+    optional string nickname = 2;
+    optional int32 status = 3;
+    optional int64 userId = 4 [(opts).ts = {as_string: true}];
+    repeated int32 genders = 5;
+}
+
+message RpcUserListResponse {
+    repeated ModelProto.UserPb users = 1;
+    required CommonProto.PagingPb paging = 2;
+}
+
+message RpcUserDataRequest {
+    option (m_opts).opt = {
+        method: "GET"
+        context: "uaa"
+        path: "/user/{userId}"
+    };
+
+    required int64 userId = 1 [(opts).ts = {as_string: true}];
+}
+
+message RpcUserDataResponse {
+    required ModelProto.UserPb user = 1;
+}
+
+message RpcUserChangeStatusRequest {
+    option (m_opts).opt = {
+        method: "POST"
+        context: "uaa"
+        path: "/user/{userId}/status"
+    };
+
+    required int64 userId = 1 [(opts).ts = {as_string: true}];
+    required int32 status = 2;
+}
+
+message RpcUserChangeStatusResponse {
+    required int32 status = 1;
+}
+
+message RpcUserDeleteRequest {
+    option (m_opts).opt = {
+        method: "POST"
+        context: "uaa"
+        path: "/user/{userId}/delete"
+    };
+
+    required int64 userId = 1 [(opts).ts = {as_string: true}];
+}
+
+message RpcUserDeleteResponse {
+}

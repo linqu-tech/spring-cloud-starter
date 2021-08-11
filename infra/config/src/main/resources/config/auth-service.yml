@@ -1,0 +1,27 @@
+server:
+  port: 8200
+  servlet:
+    context-path: /uaa
+
+spring:
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  datasource:
+    url: jdbc:mysql://db-mysql/starter-auth
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${starter.gateway}/uaa/oauth2/jwks
+
+starter:
+  client:
+    redirect-uri: https://starter.linqu.tech/passport/callback
