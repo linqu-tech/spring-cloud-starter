@@ -1,0 +1,36 @@
+server:
+  port: 0
+  servlet:
+    context-path: /account
+
+spring:
+  application:
+    name: auth-service
+  cloud:
+    config:
+      enabled: false
+    loadbalancer:
+      enabled: false
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  datasource:
+    url: jdbc:h2:mem:db;DATABASE_TO_LOWER=TRUE;MODE=MySQL;DB_CLOSE_DELAY=-1;
+    username: root
+    password: root
+    driver-class-name: org.h2.Driver
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+starter:
+  base-url:
+    auth-service: http://127.0.0.1:{port}

@@ -1,0 +1,20 @@
+syntax = "proto2";
+
+package ApiErrorProto;
+
+option java_package = "tech.linqu.spring.cloud.starter.proto.external.error";
+
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+enum ErrorCode {
+    option (e_opts).java = {
+        implements: "ApiErrorCode"
+    };
+
+    OK = 0;
+    ERROR = 1;
+
+    INVALID_CREDENTIAL = 100;
+    SIGNUP_ERROR = 101;
+}

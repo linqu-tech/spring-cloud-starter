@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package ErrorProto;
+
+option java_package = "tech.linqu.spring.cloud.starter.proto.imports.error";
+
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+message ValidationErrorMessage {
+    map<string, string> errors = 1;
+}
+
+message ErrorMessage {
+    required int32 code = 1;
+    optional string message = 2;
+}

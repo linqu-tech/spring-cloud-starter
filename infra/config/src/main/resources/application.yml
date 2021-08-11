@@ -1,0 +1,16 @@
+server:
+  port: 8100
+
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config
+        prefix: config
+  profiles:
+    active: native
+  security:
+    user:
+      name: user
+      password: pass1234
