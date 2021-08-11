@@ -1,0 +1,12 @@
+<div class="exception__img-block">
+  <div class="exception__img" [style.backgroundImage]="_img"></div>
+</div>
+<div class="exception__cont">
+  <h1 class="exception__cont-title" [innerHTML]="_title"></h1>
+  <div class="exception__cont-desc" [innerHTML]="_desc || locale[_type]"></div>
+  <div class="exception__cont-actions">
+    <button *ngIf="!hasContent" nz-button [routerLink]="['/']" [nzType]="'primary'">
+      {{ locale['tips'] }}
+    </button>
+  </div>
+</div>

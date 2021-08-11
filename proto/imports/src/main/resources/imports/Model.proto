@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+package ModelProto;
+
+option java_package = "tech.linqu.spring.cloud.starter.proto.imports.model";
+
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+enum UserStatus {
+    ACTIVE = 0;
+    SUSPENDED = 1;
+    INACTIVE = 2;
+}
+
+message UserPb {
+    required int64 id = 1 [
+        (opts).ts = {as_string: true},
+        (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}
+    ];
+    required string username = 2;
+    required string nickname = 3;
+    required string avatar = 4;
+    required int32 gender = 5;
+    required int32 status = 6;
+    required fixed64 created = 7;
+}

@@ -1,0 +1,62 @@
+<nz-card [nzBordered]="false" [nzLoading]="loading">
+  <div *ngIf="user">
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">ID</nz-form-label>
+        <nz-form-control>
+          <nz-form-text>{{user.id}}</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">Nickname</nz-form-label>
+        <nz-form-control>
+          <nz-form-text>{{user.nickname}}</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">Avatar</nz-form-label>
+        <nz-form-control>
+          <nz-card nzHoverable style="width: 200px">
+            <div class="image-card">
+              <img *ngIf="user.avatar" alt="{{ user.nickname }}" src="{{ user.avatar }}"/>
+            </div>
+          </nz-card>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">Gender</nz-form-label>
+        <nz-form-control>
+          <nz-form-text>{{user.gender.name}}</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">Created At</nz-form-label>
+        <nz-form-control>
+          <nz-form-text>{{user.created | date: dateFormat}}</nz-form-text>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">Status</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group [(ngModel)]="status" required [ngModelOptions]="{standalone: true}">
+            <label nz-radio *ngFor="let v of statuses" [nzValue]="v">{{ v.name }}</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">Action</nz-form-label>
+        <nz-form-control>
+          <button nz-button nzType="primary" [disabled]="disabled" [nzLoading]="submitting" (click)="changeStatus()">Confirm</button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button nz-button class="ml-sm" (click)="cancel()">Back</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-card>

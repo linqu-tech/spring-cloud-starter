@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      enabled: false
+    gateway:
+      routes:
+        - id: test
+          uri: lb://test
+          predicates:
+            - Path=/test/api/**
+          filters:
+            - RewritePath=/test/(?<segment>.*), /$\{segment}
+            - ReplaceLocationResponseHeader=Location, replaced, replacement
+            - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: false
+    fetchRegistry: false

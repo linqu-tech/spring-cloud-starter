@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+starter:
+  auth-url: https://starter-api.linqu.tech/uaa
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          order: 1
+          predicates:
+            - Path=/uaa/**
+          filters:
+            - ReplaceLocationResponseHeader=Location, /uaa/gateway,
+            - ReplaceLocationResponseHeader=Location, (^(?:https?|ftps?)://)?[^:/]+(?::\d+)?(?:/v\d+)?/uaa(?=/), ${starter.auth-url}
+
+        - id: account-service
+          uri: lb://account-service
+          predicates:
+            - Path=/account/**

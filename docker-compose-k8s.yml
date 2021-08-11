@@ -1,0 +1,20 @@
+services:
+  config:
+    build: infra/config
+    image: starter-k8s/infra-config
+
+  gateway:
+    build: infra/gateway
+    image: starter-k8s/infra-gateway
+
+  db-mysql:
+    build: aggregation/mysql
+    image: starter-k8s/mysql
+
+  auth-service:
+    build: service/auth
+    image: starter-k8s/auth-service
+
+  account-service:
+    build: service/account
+    image: starter-k8s/account-service

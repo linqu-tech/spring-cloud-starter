@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mysql
+  name: mysql
+  namespace: spring-cloud-starter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: starter-k8s/mysql
+          imagePullPolicy: Never
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+          ports:
+            - name: mysql
+              containerPort: 3306
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: db-mysql
+  name: db-mysql
+  namespace: spring-cloud-starter
+spec:
+  type: NodePort
+  ports:
+    - name: "mysql-service"
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: mysql

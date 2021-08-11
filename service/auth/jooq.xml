@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.14.0.xsd">
+    <basedir>.</basedir>
+    <generator>
+        <strategy>
+            <matchers>
+                <tables>
+                    <table>
+                        <tableClass>
+                            <transform>PASCAL</transform>
+                            <expression>$0_table</expression>
+                        </tableClass>
+                    </table>
+                </tables>
+            </matchers>
+        </strategy>
+        <target>
+            <packageName>tech.linqu.spring.cloud.starter.auth.schema</packageName>
+            <directory>build/generated/sources/jooq/java/main</directory>
+        </target>
+        <database>
+            <name>org.jooq.meta.extensions.ddl.DDLDatabase</name>
+            <properties>
+                <property>
+                    <key>scripts</key>
+                    <value>src/main/resources/db/migration/*</value>
+                </property>
+            </properties>
+            <forcedTypes>
+                <forcedType>
+                    <userType>java.lang.Long</userType>
+                    <converter>tech.linqu.spring.cloud.starter.utilities.jooq.TimeConverter</converter>
+                    <includeExpression>
+                        .*\.created | .*\.updated | .*\..*_time
+                    </includeExpression>
+                </forcedType>
+                <forcedType>
+                    <userType>tech.linqu.spring.cloud.starter.auth.domain.UserStatus</userType>
+                    <converter>tech.linqu.spring.cloud.starter.auth.domain.UserStatus.DbConverter</converter>
+                    <includeExpression>user.status</includeExpression>
+                </forcedType>
+            </forcedTypes>
+        </database>
+    </generator>
+</configuration>
