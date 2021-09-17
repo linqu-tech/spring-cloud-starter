@@ -3,6 +3,10 @@ server:
   servlet:
     context-path: /account
 
+core:
+  url:
+    auth-service: http://127.0.0.1:{server.port}
+
 spring:
   application:
     name: auth-service
@@ -30,7 +34,3 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
-
-starter:
-  base-url:
-    auth-service: http://127.0.0.1:{port}

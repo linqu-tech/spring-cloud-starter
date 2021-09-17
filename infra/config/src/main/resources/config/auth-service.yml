@@ -9,7 +9,7 @@ spring:
       pageable:
         one-indexed-parameters: true
   datasource:
-    url: jdbc:mysql://db-mysql/starter-auth
+    url: ${core.url.db-auth}
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,8 +20,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${starter.gateway}/uaa/oauth2/jwks
-
-starter:
-  client:
-    redirect-uri: https://starter.linqu.tech/passport/callback
+          jwk-set-uri: ${core.url.gateway}/uaa/oauth2/jwks

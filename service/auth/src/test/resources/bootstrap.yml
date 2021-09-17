@@ -1,7 +1,7 @@
-starter:
-  client:
-    redirect-uri: https://redirect.com
-  gateway: https://gateway.com
+core:
+  url:
+    frontend: https://redirect.com
+    gateway: https://gateway.com
 
 server:
   port: 0
@@ -30,7 +30,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${starter.gateway}/uaa/oauth2/jwks
+          jwk-set-uri: ${core.url.gateway}/uaa/oauth2/jwks
 
 eureka:
   instance:

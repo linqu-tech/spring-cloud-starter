@@ -1,7 +1,5 @@
-starter:
-  auth-url: http://127.0.0.1:8080/uaa
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8110/eureka/
+core:
+  url:
+    endpoint: http://127.0.0.1:8080
+    gateway: http://127.0.0.1:8080
+    registry: http://localhost:8110/eureka

@@ -9,7 +9,7 @@ spring:
       pageable:
         one-indexed-parameters: true
   datasource:
-    url: jdbc:mysql://db-mysql/starter-account
+    url: ${core.url.db-account}
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,7 +20,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${starter.gateway}/uaa
+          issuer-uri: ${core.url.gateway}/uaa
       client:
         registration:
           account-service:
@@ -31,8 +31,4 @@ spring:
             scope: server
         provider:
           uaa:
-            issuer-uri: ${starter.gateway}/uaa
-
-starter:
-  base-url:
-    auth-service: lb://auth-service
+            issuer-uri: ${core.url.gateway}/uaa

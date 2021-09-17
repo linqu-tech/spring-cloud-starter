@@ -27,7 +27,7 @@ spec:
                 -Dserver.tomcat.threads.max=20
                 -Dspring.profiles.active=prod
                 -Dserver.port=80
-                -Dstarter.client.redirect-uri=http://127.0.0.1:4200/passport/callback
+                -Dcore.url.frontend=http://127.0.0.1:4200/passport/callback
           ports:
             - name: auth-service
               containerPort: 80

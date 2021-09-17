@@ -53,7 +53,7 @@ class UserControllerTest extends SpringBootMvcTests {
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
         authService = startClientAndServer(0);
-        registry.add("starter.base-url.auth-service",
+        registry.add("core.url.auth-service",
             () -> "http://localhost:" + authService.getPort());
     }
 

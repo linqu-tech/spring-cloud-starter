@@ -43,7 +43,7 @@ public class AuthServiceClient extends WebpbClient {
      * @param factory {@link WebClient.Builder}
      */
     public AuthServiceClient(WebClient.Builder factory,
-                             @Value("${starter.base-url.auth-service}") String baseUrl) {
+                             @Value("${core.url.auth-service}") String baseUrl) {
         super(webClient(factory, baseUrl), clientRegistrationId("account-service"));
     }
 
