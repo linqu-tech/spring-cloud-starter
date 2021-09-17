@@ -45,7 +45,7 @@ public class AuthorizationConfiguration {
 
     @Bean
     RegisteredClientRepository registeredClientRepository(
-        @Value("${starter.client.redirect-uri}") String redirectUri) {
+        @Value("${core.url.frontend}") String redirectUri) {
 
         RegisteredClient browserClient = RegisteredClient
             .withId(UUID.randomUUID().toString())
@@ -88,7 +88,7 @@ public class AuthorizationConfiguration {
     }
 
     @Bean
-    ProviderSettings providerSettings(@Value("${starter.gateway}") String gatewayUrl) {
+    ProviderSettings providerSettings(@Value("${core.url.gateway}") String gatewayUrl) {
         return new ProviderSettings().issuer(gatewayUrl + "/uaa");
     }
 }

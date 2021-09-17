@@ -1,18 +1,7 @@
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/starter-auth
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: ${starter.gateway}/uaa/oauth2/jwks
-
-starter:
-  client:
-    redirect-uri: http://127.0.0.1:4200/passport/callback
-  gateway: http://127.0.0.1:8080
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8110/eureka/
+core:
+  url:
+    db-auth: jdbc:mysql://127.0.0.1:3306/starter_auth?allowPublicKeyRetrieval=true&useSSL=false
+    endpoint: http://127.0.0.1:8080
+    frontend: http://127.0.0.1:4200/passport/callback
+    gateway: http://127.0.0.1:8080
+    registry: http://localhost:8110/eureka

@@ -27,7 +27,7 @@ spec:
                 -Dserver.tomcat.threads.max=20
                 -Dspring.profiles.active=prod
                 -Dserver.port=80
-                -Dstarter.auth-url=http://127.0.0.1:8080/uaa
+                -Dcore.url.endpoint=http://127.0.0.1:8080
           ports:
             - name: gateway
               containerPort: 80

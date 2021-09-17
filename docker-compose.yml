@@ -1,4 +1,16 @@
 services:
+  db-mysql:
+    build: aggregation/mysql
+    image: starter/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 8300:3306
+    mem_limit: 100m
+    volumes:
+      - data-mysql:/var/lib/mysql
+
   config:
     build: infra/config
     image: starter/infra-config
@@ -45,24 +57,12 @@ services:
         -XX:MaxRAM=160m
         -Dserver.tomcat.threads.max=20
         -Dspring.profiles.active=prod
-        -Dstarter.auth-url=http://127.0.0.1:8080/uaa
+        -Dcore.url.endpoint=http://127.0.0.1:8080
     ports:
       - 8080:8080
     mem_limit: 160m
     volumes:
       - data-app:/app/infra/gateway
-
-  db-mysql:
-    build: aggregation/mysql
-    image: starter/mysql
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - 8300:3306
-    mem_limit: 100m
-    volumes:
-      - data-mysql:/var/lib/mysql
 
   auth-service:
     build: service/auth
@@ -78,7 +78,7 @@ services:
         -XX:MaxRAM=260m
         -Dserver.tomcat.threads.max=20
         -Dspring.profiles.active=prod
-        -Dstarter.client.redirect-uri=http://127.0.0.1:4200/passport/callback
+        -Dcore.url.frontend=http://127.0.0.1:4200/passport/callback
     ports:
       - 8200:8200
     mem_limit: 260m
