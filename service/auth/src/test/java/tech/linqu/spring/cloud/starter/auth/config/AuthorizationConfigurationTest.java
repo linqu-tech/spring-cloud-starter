@@ -25,6 +25,6 @@ class AuthorizationConfigurationTest {
     @Test
     void shouldGetProviderSettingsSuccess() {
         AuthorizationConfiguration configuration = new AuthorizationConfiguration();
-        assertEquals("a.com/uaa", configuration.providerSettings("a.com").issuer());
+        assertEquals("a.com/uaa", configuration.providerSettings("a.com").getIssuer());
     }
 }
