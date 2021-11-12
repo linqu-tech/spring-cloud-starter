@@ -33,6 +33,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import tech.linqu.spring.cloud.starter.auth.config.jose.Jwks;
 
@@ -51,13 +52,13 @@ public class AuthorizationConfiguration {
             .withId(UUID.randomUUID().toString())
             .clientId("browser")
             .clientSecret("{plain}secret")
-            .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
+            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .redirectUri(redirectUri)
             .scope(OidcScopes.OPENID)
             .scope("ui")
-            .clientSettings(clientSettings -> clientSettings.requireUserConsent(true))
+            .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
             .build();
 
         RegisteredClient accountService = RegisteredClient
@@ -89,6 +90,6 @@ public class AuthorizationConfiguration {
 
     @Bean
     ProviderSettings providerSettings(@Value("${core.url.gateway}") String gatewayUrl) {
-        return new ProviderSettings().issuer(gatewayUrl + "/uaa");
+        return ProviderSettings.builder().issuer(gatewayUrl + "/uaa").build();
     }
 }

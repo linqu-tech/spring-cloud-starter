@@ -7,7 +7,7 @@ plugins {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.springframework.security.experimental:spring-security-oauth2-authorization-server:${Vers.authorizationServer}")
+    implementation("org.springframework.security:spring-security-oauth2-authorization-server:${Vers.authorizationServer}")
     testImplementation(project(":lib:tests"))
 }
 

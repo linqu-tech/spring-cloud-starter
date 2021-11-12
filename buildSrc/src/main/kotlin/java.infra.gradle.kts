@@ -1,4 +1,3 @@
-import gradle.kotlin.dsl.accessors._1dc87f5aa74e2d0370f57591834dec89.implementation
 import utils.Vers
 
 plugins {
